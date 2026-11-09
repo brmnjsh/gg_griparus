@@ -1,6 +1,6 @@
-# Griparius - gripgains.ca sessions import for persoal use
+# Griparius - gripgains.ca sessions import for personal use
 
-Like Icarus before him, griparius is attempting to fly too close to the grip gains sun. May the Hand of God remain merciful during this journey.
+Like Icarus before him, griparus is attempting to fly too close to the grip gains sun. May the Hand of God remain merciful during this journey.
 
 ## How
 - grab your Authorization token from a request header on one of the many requests made to the gripgains.ca backend. XHR endpoints like "metrics?sessions=all" will have this available
