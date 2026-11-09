@@ -33,27 +33,37 @@ try:
             headers = {
                 "Authorization": token
             }
-            response = requests.get('https://gripgains.ca/api/metrics?sessions=all', headers=headers)
-            grip_sessions = response.json()['metrics']
 
-            filter_fields=['date_time','gripper','reps','weight', 'side']
-            gripper_metrics = []
+            try:
+                response = requests.get('https://gripgains.ca/api/metrics?sessions=all', headers=headers)
+                response.raise_for_status()
 
-            # sort grip sessions and grab required keys
-            for grip_session in grip_sessions:
-                grip_session_data = { key: grip_session[key] for key in grip_session if key in filter_fields}
-                gripper_metrics.append(grip_session_data)
+                grip_sessions = response.json()['metrics']
 
-            # convert to csv and save for use to import to powercurve
-            print("generating csv...")
-            keys = gripper_metrics[0].keys()
-            timestr = time.strftime("%Y%m%d-%H%M%S")
-            with open(f"runs/gripper-sessions-{timestr}.csv", 'w', newline='') as output_file:
-                dict_writer = csv.DictWriter(output_file, keys)
-                dict_writer.writeheader()
-                dict_writer.writerows(gripper_metrics)
+                filter_fields=['date_time','gripper','reps','weight', 'side']
+                gripper_metrics = []
 
-            print("csv succesfully created!")
+                # sort grip sessions and grab required keys
+                for grip_session in grip_sessions:
+                    grip_session_data = { key: grip_session[key] for key in grip_session if key in filter_fields}
+                    gripper_metrics.append(grip_session_data)
+
+                # convert to csv and save for use to import to powercurve
+                print("generating csv...")
+                keys = gripper_metrics[0].keys()
+                timestr = time.strftime("%Y%m%d-%H%M%S")
+                with open(f"runs/gripper-sessions-{timestr}.csv", 'w', newline='') as output_file:
+                    dict_writer = csv.DictWriter(output_file, keys)
+                    dict_writer.writeheader()
+                    dict_writer.writerows(gripper_metrics)
+
+                print("csv succesfully created!")
+            except requests.exceptions.HTTPError as http_err:
+                # Handle any HTTP errors that occur
+                print(f"HTTP error occurred: {http_err}")
+            except requests.exceptions.RequestException as err:
+                # Handle any other requests-related errors
+                print(f"Other error occurred: {err}")
         else:
             print("token required, see documentation for further details")
 except getopt.error as err:
