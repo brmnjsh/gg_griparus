@@ -4,7 +4,7 @@ Like Icarus before him, griparus is attempting to fly too close to the grip gain
 
 ## How
 - grab your Authorization token from a request header on one of the many requests made to the gripgains.ca backend. XHR endpoints like "metrics?sessions=all" will have this available
-- simple pull down the repo, and run the script: `python griparius.py -t "Bearer token_value"
+- simply pull down the repo, and run the script: `python griparius.py -t "Bearer token_value"
 - be sure to wrap the auth token in quotes or it'll die
 
 ## Thanks
