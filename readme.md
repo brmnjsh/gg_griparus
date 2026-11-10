@@ -1,4 +1,5 @@
-# Griparius - gripgains.ca sessions import for personal use
+# Griparius
+gripgains sessions export for personal use
 
 Like Icarus before him, griparus is attempting to fly too close to the grip gains sun. May the Hand of God remain merciful during this journey.
 
